@@ -1,4 +1,4 @@
-package de.verwaltung.todo.domain;
+package de.verwaltung.buch.domain;
 
 import de.verwaltung.base.domain.AbstractEntity;
 import jakarta.persistence.*;

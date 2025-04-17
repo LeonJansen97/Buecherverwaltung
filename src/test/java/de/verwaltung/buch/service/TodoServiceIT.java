@@ -1,7 +1,7 @@
-package de.verwaltung.todo.service;
+package de.verwaltung.buch.service;
 
-import de.verwaltung.todo.domain.Todo;
-import de.verwaltung.todo.domain.TodoRepository;
+import de.verwaltung.buch.domain.Todo;
+import de.verwaltung.buch.domain.TodoRepository;
 import jakarta.validation.ValidationException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

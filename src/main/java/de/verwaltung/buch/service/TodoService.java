@@ -1,7 +1,7 @@
-package de.verwaltung.todo.service;
+package de.verwaltung.buch.service;
 
-import de.verwaltung.todo.domain.Todo;
-import de.verwaltung.todo.domain.TodoRepository;
+import de.verwaltung.buch.domain.Todo;
+import de.verwaltung.buch.domain.TodoRepository;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

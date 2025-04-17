@@ -1,4 +1,4 @@
 @NullMarked
-package de.verwaltung.todo.domain;
+package de.verwaltung.buch.service;
 
 import org.jspecify.annotations.NullMarked;

@@ -1,8 +1,8 @@
-package de.verwaltung.todo.ui.view;
+package de.verwaltung.buch.ui.view;
 
 import de.verwaltung.base.ui.component.ViewToolbar;
-import de.verwaltung.todo.domain.Todo;
-import de.verwaltung.todo.service.TodoService;
+import de.verwaltung.buch.domain.Todo;
+import de.verwaltung.buch.service.TodoService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;

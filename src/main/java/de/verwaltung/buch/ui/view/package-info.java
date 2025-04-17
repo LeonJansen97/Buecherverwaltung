@@ -1,4 +1,4 @@
 @NullMarked
-package de.verwaltung.todo.ui.view;
+package de.verwaltung.buch.ui.view;
 
 import org.jspecify.annotations.NullMarked;

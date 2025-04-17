@@ -1,4 +1,4 @@
-package de.verwaltung.todo.domain;
+package de.verwaltung.buch.domain;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
