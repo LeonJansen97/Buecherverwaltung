@@ -1,5 +1,6 @@
 package de.verwaltung.buch.service;
 
+import de.verwaltung.buch.domain.Buch;
 import de.verwaltung.buch.domain.BuchRepository;
 import de.verwaltung.buch.mappers.Buchmapper;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,8 @@ public class BuchService {
                 .toList();
     }
 
+    public void addBookToInventary(BuchDTO buchDTO) {
+        Buch buch = buchmapper.mapToModel(buchDTO);
+        buchRepository.save(buch);
+    }
 }
