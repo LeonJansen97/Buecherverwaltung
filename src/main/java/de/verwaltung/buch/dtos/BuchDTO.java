@@ -1,4 +1,4 @@
-package de.verwaltung.buch.service;
+package de.verwaltung.buch.dtos;
 
 public class BuchDTO {
     private long id;

@@ -13,7 +13,7 @@ import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.sli
 @AnalyzeClasses(packages = ArchitectureTest.BASE_PACKAGE)
 class ArchitectureTest {
 
-    static final String BASE_PACKAGE = "com.example.application";
+    static final String BASE_PACKAGE = "de.verwaltung.buch";
 
     // TODO Add your own rules and remove those that don't apply to your project
 

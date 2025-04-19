@@ -7,7 +7,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import de.verwaltung.buch.service.BuchDTO;
+import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
 @Route("books/new")

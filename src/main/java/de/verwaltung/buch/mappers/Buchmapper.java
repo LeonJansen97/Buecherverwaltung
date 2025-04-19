@@ -1,7 +1,7 @@
 package de.verwaltung.buch.mappers;
 
 import de.verwaltung.buch.domain.Buch;
-import de.verwaltung.buch.service.BuchDTO;
+import de.verwaltung.buch.dtos.BuchDTO;
 
 public class Buchmapper {
     public BuchDTO mapToDTO(Buch buch) {
