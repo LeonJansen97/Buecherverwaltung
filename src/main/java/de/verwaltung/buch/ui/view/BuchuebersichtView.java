@@ -12,7 +12,7 @@ import de.verwaltung.buch.service.BuchService;
 @PageTitle("Buchübersicht")
 public class BuchuebersichtView extends VerticalLayout {
     public BuchuebersichtView(BuchService buchService) {
-        Grid<BuchDTO> grid = new Grid<>(BuchDTO.class);
+        Grid<BuchDTO> grid = new Grid<>(BuchDTO.class, false);
 
         grid.setItems(buchService.findAllBooks());
 
