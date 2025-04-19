@@ -1,6 +1,8 @@
 package de.verwaltung.buch.ui.view;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -19,6 +21,14 @@ public class BuchFormView extends VerticalLayout {
     private final TextArea beschreibungTextArea = new TextArea("Beschreibung");
 
     public BuchFormView(BuchService buchService) {
+
+        H2 ueberschriftSeite = new H2("Buch hinzufügen");
+
+        Div headingWrapper = new Div(ueberschriftSeite);
+        headingWrapper.getStyle()
+                .set("text-align", "center")
+                .set("width", "100%");
+
         setPadding(true);
         setWidth("400px");
         setAlignItems(Alignment.START);
@@ -38,6 +48,7 @@ public class BuchFormView extends VerticalLayout {
         });
 
         add(
+                headingWrapper,
                 titelField,
                 autorField,
                 veroeffentlichungsJahrField,
