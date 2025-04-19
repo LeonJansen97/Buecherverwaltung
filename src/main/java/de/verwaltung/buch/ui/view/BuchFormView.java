@@ -30,8 +30,8 @@ public class BuchFormView extends VerticalLayout {
                 .set("width", "100%");
 
         setPadding(true);
-        setWidth("400px");
-        setAlignItems(Alignment.START);
+        setWidth("100%");
+        setAlignItems(Alignment.CENTER);
 
         Button speichernButton = new Button("Speichern");
         speichernButton.addClickListener(e -> {
