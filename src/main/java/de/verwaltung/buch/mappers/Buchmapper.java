@@ -7,20 +7,20 @@ public class Buchmapper {
     public BuchDTO mapToDTO(Buch buch) {
         return new BuchDTO(
                 buch.getId(),
-                buch.getAutor(),
                 buch.getTitel(),
-                buch.getBeschreibung(),
-                buch.getVeroeffentlichungsJahr()
+                buch.getAutor(),
+                buch.getVeroeffentlichungsJahr(),
+                buch.getBeschreibung()
         );
     }
 
     public Buch mapToModel(BuchDTO buchDTO) {
         return new Buch(
                 buchDTO.getId(),
-                buchDTO.getAutor(),
                 buchDTO.getTitel(),
-                buchDTO.getBeschreibung(),
-                buchDTO.getVeroeffentlichungsJahr()
+                buchDTO.getAutor(),
+                buchDTO.getVeroeffentlichungsJahr(),
+                buchDTO.getBeschreibung()
         );
     }
 }

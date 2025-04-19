@@ -1,23 +1,26 @@
 package de.verwaltung.buch.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Buch {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titel;
     private String beschreibung;
     private String veroeffentlichungsJahr;
     private String autor;
 
-    public Buch(long id, String titel, String beschreibung, String veroeffentlichungsJahr, String autor) {
+    public Buch(long id, String titel, String autor, String veroeffentlichungsJahr, String beschreibung) {
         this.id = id;
         this.titel = titel;
-        this.beschreibung = beschreibung;
-        this.veroeffentlichungsJahr = veroeffentlichungsJahr;
         this.autor = autor;
+        this.veroeffentlichungsJahr = veroeffentlichungsJahr;
+        this.beschreibung = beschreibung;
     }
 
     public Buch() {}

@@ -7,13 +7,15 @@ public class BuchDTO {
     private String titel;
     private String veroeffentlichungsJahr;
 
-    public BuchDTO(long id, String titel, String beschreibung, String veroeffentlichungsJahr, String autor) {
+    public BuchDTO(long id, String titel, String autor, String veroeffentlichungsJahr, String beschreibung) {
         this.id = id;
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.veroeffentlichungsJahr = veroeffentlichungsJahr;
         this.autor = autor;
     }
+
+    public BuchDTO() {}
 
     public long getId() {
         return id;
