@@ -1,6 +1,7 @@
 package de.verwaltung.buch.ui.view;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -12,6 +13,8 @@ import de.verwaltung.buch.service.BuchService;
 @PageTitle("Buchübersicht")
 public class BuchuebersichtView extends VerticalLayout {
     public BuchuebersichtView(BuchService buchService) {
+        H2 ueberschriftSeite = new H2("Buchübersicht");
+
         Grid<BuchDTO> grid = new Grid<>(BuchDTO.class, false);
 
         grid.setItems(buchService.findAllBooks());
@@ -32,6 +35,6 @@ public class BuchuebersichtView extends VerticalLayout {
                 .setAutoWidth(true)
                 .setFlexGrow(1);
 
-        add(grid);
+        add(ueberschriftSeite, grid);
     }
 }
