@@ -1,0 +1,27 @@
+package de.verwaltung.buch.service;
+
+import de.verwaltung.buch.domain.BuchRepository;
+import de.verwaltung.buch.mappers.Buchmapper;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.StreamSupport;
+
+@Service
+public class BuchService {
+    private final BuchRepository buchRepository;
+    private final Buchmapper buchmapper = new Buchmapper();
+    public BuchService (BuchRepository buchRepository) {
+        this.buchRepository = buchRepository;
+    }
+
+    public List<BuchDTO> findAllBooks() {
+        return StreamSupport
+                .stream(
+                        buchRepository.findAll().spliterator(),
+                        false)
+                .map(buchmapper::mapToDTO)
+                .toList();
+    }
+
+}

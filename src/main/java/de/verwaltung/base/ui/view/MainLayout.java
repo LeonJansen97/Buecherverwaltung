@@ -24,7 +24,11 @@ public final class MainLayout extends AppLayout {
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
-        addToDrawer(createHeader(), new Scroller(createSideNav()), createUserMenu());
+        addToDrawer(
+                createHeader(),
+                new Scroller(createSideNav()),
+                createUserMenu()
+        );
     }
 
     private Div createHeader() {

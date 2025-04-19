@@ -1,26 +1,19 @@
-package de.verwaltung.buch.domain;
+package de.verwaltung.buch.service;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-@Entity
-public class Buch {
-    @Id
+public class BuchDTO {
     private long id;
-    private String titel;
-    private String beschreibung;
-    private String veroeffentlichungsJahr;
     private String autor;
+    private String beschreibung;
+    private String titel;
+    private String veroeffentlichungsJahr;
 
-    public Buch(long id, String titel, String beschreibung, String veroeffentlichungsJahr, String autor) {
+    public BuchDTO(long id, String titel, String beschreibung, String veroeffentlichungsJahr, String autor) {
         this.id = id;
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.veroeffentlichungsJahr = veroeffentlichungsJahr;
         this.autor = autor;
     }
-
-    public Buch() {}
 
     public long getId() {
         return id;
