@@ -14,13 +14,13 @@ import de.verwaltung.buch.service.BuchService;
 
 @Route("books/new")
 @PageTitle("Buch hinzufügen")
-public class BuchFormView extends VerticalLayout {
+public class BuchHinzufuegenView extends VerticalLayout {
     private final TextField titelField = new TextField("Titel");
     private final TextField autorField = new TextField("Autor");
     private final TextField veroeffentlichungsJahrField = new TextField("Veröffentlichungsjahr");
     private final TextArea beschreibungTextArea = new TextArea("Beschreibung");
 
-    public BuchFormView(BuchService buchService) {
+    public BuchHinzufuegenView(BuchService buchService) {
 
         H2 ueberschriftSeite = new H2("Buch hinzufügen");
 

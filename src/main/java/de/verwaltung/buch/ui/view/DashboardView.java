@@ -28,7 +28,7 @@ public class DashboardView extends VerticalLayout {
         HorizontalLayout actions = new HorizontalLayout();
         actions.add(
                 createNavCard("Buchbestand", "Alle Medien ansehen", VaadinIcon.LIST, BuchbestandView.class),
-                createNavCard("Neues Medium", "Buch einpflegen", VaadinIcon.PLUS_CIRCLE, BuchFormView.class)
+                createNavCard("Neues Medium", "Buch einpflegen", VaadinIcon.PLUS_CIRCLE, BuchHinzufuegenView.class)
         );
 
         actions.setSpacing(true);
