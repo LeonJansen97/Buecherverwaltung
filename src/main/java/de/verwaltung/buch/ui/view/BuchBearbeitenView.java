@@ -21,6 +21,7 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
     private final TextField autorField = new TextField("Autor");
     private final TextField veroeffentlichungsJahrField = new TextField("Veröffentlichungsjahr");
     private final TextArea beschreibungTextArea = new TextArea("Beschreibung");
+    private final Button bearbeitenButton = new Button("Speichern");
 
     private final BuchService buchService;
 
@@ -39,7 +40,36 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
         setWidth("100%");
         setAlignItems(Alignment.CENTER);
 
-        Button bearbeitenButton = new Button("Speichern");
+        titelField.addValueChangeListener(e -> {
+            titelField.setInvalid(e.getValue().isEmpty() ||
+                    e.getValue().matches(".*\\d.*")
+            );
+            updateBearbeitenButtonState();
+        });
+
+        autorField.addValueChangeListener(e -> {
+            autorField.setInvalid(
+                    e.getValue().isEmpty() ||
+                            e.getValue().matches(".*\\d.*")
+            );
+            updateBearbeitenButtonState();
+        });
+
+        veroeffentlichungsJahrField.addValueChangeListener(e -> {
+            veroeffentlichungsJahrField.setInvalid(
+                    e.getValue().isEmpty() ||
+                            !e.getValue().matches("\\d{4}")
+            );
+            updateBearbeitenButtonState();
+        });
+
+        beschreibungTextArea.addValueChangeListener(e -> {
+            beschreibungTextArea.setInvalid(
+                    e.getValue().isEmpty()
+            );
+            updateBearbeitenButtonState();
+        });
+
         bearbeitenButton.addClickListener(e -> {
             BuchDTO buchDTO = new BuchDTO();
             buchDTO.setId(buchId);
@@ -78,6 +108,15 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
         } else {
             Notification.show("Buch mit ID " + buchId + " nicht gefunden.");
         }
+    }
+
+    private void updateBearbeitenButtonState() {
+        boolean allValid = !titelField.isInvalid()
+                && !autorField.isInvalid()
+                && !veroeffentlichungsJahrField.isInvalid()
+                && !beschreibungTextArea.isInvalid();
+
+        bearbeitenButton.setEnabled(allValid);
     }
 
     private void clearForm() {

@@ -19,6 +19,7 @@ public class BuchHinzufuegenView extends VerticalLayout {
     private final TextField autorField = new TextField("Autor");
     private final TextField veroeffentlichungsJahrField = new TextField("Veröffentlichungsjahr");
     private final TextArea beschreibungTextArea = new TextArea("Beschreibung");
+    private final Button speichernButton = new Button("Speichern");
 
     public BuchHinzufuegenView(BuchService buchService) {
 
@@ -33,7 +34,40 @@ public class BuchHinzufuegenView extends VerticalLayout {
         setWidth("100%");
         setAlignItems(Alignment.CENTER);
 
-        Button speichernButton = new Button("Speichern");
+        setInputFieldStyles();
+
+        speichernButton.setEnabled(false);
+
+        titelField.addValueChangeListener(e -> {
+            titelField.setInvalid(e.getValue().isEmpty() ||
+                    e.getValue().matches(".*\\d.*")
+            );
+            updateSaveButtonState();
+        });
+
+        autorField.addValueChangeListener(e -> {
+            autorField.setInvalid(
+                    e.getValue().isEmpty() ||
+                            e.getValue().matches(".*\\d.*")
+            );
+            updateSaveButtonState();
+        });
+
+        veroeffentlichungsJahrField.addValueChangeListener(e -> {
+            veroeffentlichungsJahrField.setInvalid(
+                    e.getValue().isEmpty() ||
+                            !e.getValue().matches("\\d{4}")
+            );
+            updateSaveButtonState();
+        });
+
+        beschreibungTextArea.addValueChangeListener(e -> {
+            beschreibungTextArea.setInvalid(
+                    e.getValue().isEmpty()
+            );
+            updateSaveButtonState();
+        });
+
         speichernButton.addClickListener(e -> {
             BuchDTO buchDTO = new BuchDTO();
             buchDTO.setTitel(titelField.getValue());
@@ -55,6 +89,22 @@ public class BuchHinzufuegenView extends VerticalLayout {
                 beschreibungTextArea,
                 speichernButton
         );
+    }
+
+    private void setInputFieldStyles() {
+        veroeffentlichungsJahrField.setPattern("\\d{4}");
+        veroeffentlichungsJahrField.setInvalid(true);
+        veroeffentlichungsJahrField.setMaxLength(4);
+        veroeffentlichungsJahrField.setPlaceholder("z.B. 2020");
+    }
+
+    private void updateSaveButtonState() {
+        boolean allValid = !titelField.isInvalid()
+                && !autorField.isInvalid()
+                && !veroeffentlichungsJahrField.isInvalid()
+                && !beschreibungTextArea.isInvalid();
+
+        speichernButton.setEnabled(allValid);
     }
 
     private void clearForm() {
