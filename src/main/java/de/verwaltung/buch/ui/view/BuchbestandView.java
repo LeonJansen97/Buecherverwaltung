@@ -11,10 +11,10 @@ import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
 @Route(value = "books", layout = MainLayout.class)
-@PageTitle("Buchübersicht")
-public class BuchuebersichtView extends VerticalLayout {
-    public BuchuebersichtView(BuchService buchService) {
-        H2 ueberschriftSeite = new H2("Buchübersicht");
+@PageTitle("Buchbestand")
+public class BuchbestandView extends VerticalLayout {
+    public BuchbestandView(BuchService buchService) {
+        H2 ueberschriftSeite = new H2("Buchbestand");
 
         Div headingWrapper = new Div(ueberschriftSeite);
         headingWrapper.getStyle()

@@ -11,6 +11,9 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import de.verwaltung.buch.ui.view.BuchFormView;
+import de.verwaltung.buch.ui.view.BuchbestandView;
+import de.verwaltung.buch.ui.view.DashboardView;
 
 import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 
@@ -29,7 +32,7 @@ public final class MainLayout extends AppLayout {
         Icon buchIcon = VaadinIcon.BOOK.create();
         buchIcon.addClassNames(TextColor.PRIMARY, IconSize.LARGE);
 
-        Span appName = new Span("Bücherverwaltung");
+        Span appName = new Span("Bibliotheksmodul: Bücherverwaltung");
         appName.addClassNames(FontWeight.SEMIBOLD, FontSize.LARGE);
 
         Div header = new Div(buchIcon, appName);
@@ -40,7 +43,12 @@ public final class MainLayout extends AppLayout {
     private SideNav createSideNav() {
         SideNav nav = new SideNav();
         nav.addClassNames(Margin.Horizontal.MEDIUM);
-        MenuConfiguration.getMenuEntries().forEach(entry -> nav.addItem(createSideNavItem(entry)));
+        MenuConfiguration.getMenuEntries().forEach(
+                entry -> nav.addItem(createSideNavItem(entry))
+        );
+        nav.addItem(new SideNavItem("Übersicht", DashboardView.class, VaadinIcon.HOME.create()));
+        nav.addItem(new SideNavItem("Buch hinzufügen", BuchFormView.class, VaadinIcon.PLUS_CIRCLE.create()));
+        nav.addItem(new SideNavItem("Buchübersicht", BuchbestandView.class, VaadinIcon.LIST.create()));
         return nav;
     }
 
