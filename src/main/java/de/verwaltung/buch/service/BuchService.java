@@ -30,4 +30,10 @@ public class BuchService {
         Buch buch = buchmapper.mapToModel(buchDTO);
         buchRepository.save(buch);
     }
+
+    public BuchDTO findBookById(long id) {
+        return buchRepository.findById(id)
+                .map(buchmapper::mapToDTO)
+                .orElse(null);
+    }
 }
