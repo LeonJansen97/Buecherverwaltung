@@ -16,11 +16,8 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Übersicht")
 public class DashboardView extends VerticalLayout {
     public DashboardView() {
-        setSizeFull();
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.START);
-        setPadding(true);
-        setSpacing(true);
+
+        centerElements();
 
         H1 ueberschrift = new H1("Bibliotheksmodul: Bücherverwaltung");
         Paragraph beschreibung = new Paragraph("Verwalten Sie den Buchbestand, Ausleihen und Mahnungen.");
@@ -28,7 +25,8 @@ public class DashboardView extends VerticalLayout {
         HorizontalLayout actions = new HorizontalLayout();
         actions.add(
                 createNavCard("Buchbestand", "Alle Medien ansehen", VaadinIcon.LIST, BuchbestandView.class),
-                createNavCard("Neues Medium", "Buch einpflegen", VaadinIcon.PLUS_CIRCLE, BuchHinzufuegenView.class)
+                createNavCard("Neues Medium", "Buch einpflegen", VaadinIcon.PLUS_CIRCLE, BuchHinzufuegenView.class),
+                createNavCard("Archiv", "Bucharchiv", VaadinIcon.ARCHIVES, BuchArchivView.class)
         );
 
         actions.setSpacing(true);
@@ -36,6 +34,14 @@ public class DashboardView extends VerticalLayout {
 
 
         add(ueberschrift, beschreibung, actions);
+    }
+
+    private void centerElements() {
+        setSizeFull();
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setPadding(true);
+        setSpacing(true);
     }
 
     private Component createNavCard(String title, String subtitle, VaadinIcon icon, Class<? extends Component> target) {

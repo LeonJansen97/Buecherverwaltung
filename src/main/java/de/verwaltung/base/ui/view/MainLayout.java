@@ -11,6 +11,7 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import de.verwaltung.buch.ui.view.BuchArchivView;
 import de.verwaltung.buch.ui.view.BuchHinzufuegenView;
 import de.verwaltung.buch.ui.view.BuchbestandView;
 import de.verwaltung.buch.ui.view.DashboardView;
@@ -49,6 +50,7 @@ public final class MainLayout extends AppLayout {
         nav.addItem(new SideNavItem("Übersicht", DashboardView.class, VaadinIcon.HOME.create()));
         nav.addItem(new SideNavItem("Buch hinzufügen", BuchHinzufuegenView.class, VaadinIcon.PLUS_CIRCLE.create()));
         nav.addItem(new SideNavItem("Buchübersicht", BuchbestandView.class, VaadinIcon.LIST.create()));
+        nav.addItem(new SideNavItem("Bucharchiv", BuchArchivView.class, VaadinIcon.ARCHIVES.create()));
         return nav;
     }
 
