@@ -100,7 +100,7 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
             veroeffentlichungsJahrField.setValue(buchDTO.getVeroeffentlichungsJahr());
             beschreibungTextArea.setValue(buchDTO.getBeschreibung());
         } else {
-            Notification.show("Buch mit ID " + buchId + " nicht gefunden.");
+            Notification.show("Das Buch mit der ID " + buchId + " wurde nicht gefunden.");
         }
     }
 
