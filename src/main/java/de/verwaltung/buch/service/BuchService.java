@@ -5,10 +5,12 @@ import de.verwaltung.buch.domain.BuchRepository;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.mappers.Buchmapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class BuchService {
     private final BuchRepository buchRepository;
     private final Buchmapper buchmapper = new Buchmapper();
