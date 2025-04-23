@@ -10,6 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import de.verwaltung.base.ui.view.MainLayout;
 import de.verwaltung.buch.service.BuchService;
+import de.verwaltung.buch.ui.component.ConfirmDialog;
 
 @Route(value = "books/delete/", layout = MainLayout.class)
 @PageTitle("Buch entfernen")

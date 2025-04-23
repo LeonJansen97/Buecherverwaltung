@@ -1,4 +1,4 @@
-package de.verwaltung.buch.ui.view;
+package de.verwaltung.buch.ui.component;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
