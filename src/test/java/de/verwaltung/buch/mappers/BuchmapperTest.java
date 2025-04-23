@@ -1,9 +1,8 @@
-package de.verwaltung.mappers;
+package de.verwaltung.buch.mappers;
 
 
 import de.verwaltung.buch.domain.Buch;
 import de.verwaltung.buch.dtos.BuchDTO;
-import de.verwaltung.buch.mappers.Buchmapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
