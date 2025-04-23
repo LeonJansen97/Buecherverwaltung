@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
-@Route(value = "books/archiv")
+@Route(value = "books/archive")
 @PageTitle("Bucharchiv")
 public class BuchArchivView extends VerticalLayout {
     public BuchArchivView(BuchService buchService) {
