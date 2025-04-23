@@ -66,4 +66,20 @@ public class Buch {
     public void setGeloescht(boolean geloescht) {
         this.geloescht = geloescht;
     }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setVeroeffentlichungsJahr(String number) {
+        this.veroeffentlichungsJahr = number;
+    }
+
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
+    }
 }

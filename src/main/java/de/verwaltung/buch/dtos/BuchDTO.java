@@ -69,4 +69,7 @@ public class BuchDTO {
         return geloescht;
     }
 
+    public void setGeloescht(boolean geloescht) {
+        this.geloescht = geloescht;
+    }
 }
