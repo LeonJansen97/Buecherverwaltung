@@ -110,8 +110,14 @@ public class BuchHinzufuegenView extends VerticalLayout {
 
     private void clearForm() {
         titelField.clear();
+        titelField.setInvalid(false);
+
         autorField.clear();
+        autorField.setInvalid(false);
+
         veroeffentlichungsJahrField.clear();
+
         beschreibungTextArea.clear();
+        beschreibungTextArea.setInvalid(false);
     }
 }
