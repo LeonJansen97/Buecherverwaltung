@@ -7,7 +7,6 @@ import de.verwaltung.buch.mappers.Buchmapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 @Service
 public class BuchService {
@@ -17,18 +16,9 @@ public class BuchService {
         this.buchRepository = buchRepository;
     }
 
-    public List<BuchDTO> findAllBooks() {
-        return StreamSupport
-                .stream(
-                        buchRepository.findAll().spliterator(),
-                        false)
-                .map(buchmapper::mapToDTO)
-                .toList();
-    }
-
-    public void addBookToInventary(BuchDTO buchDTO) {
+    public BuchDTO addBookToInventary(BuchDTO buchDTO) {
         Buch buch = buchmapper.mapToModel(buchDTO);
-        buchRepository.save(buch);
+        return buchmapper.mapToDTO(buchRepository.save(buch));
     }
 
     public BuchDTO findBookById(long id) {
@@ -44,11 +34,11 @@ public class BuchService {
                 .toList();
     }
 
-    public void setDeleteFlag(Long id) {
-        buchRepository.findById(id).ifPresent(buch -> {
-            buch.setGeloescht(true);
-            buchRepository.save(buch);
-        });
+    public BuchDTO setDeleteFlag(long id) {
+        Buch buch = buchRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Buch mit der ID " + id + " nicht gefunden"));
+        buch.setGeloescht(true);
+        return buchmapper.mapToDTO(buchRepository.save(buch));
     }
 
     public List<BuchDTO> findAllBooksDeleted() {
@@ -58,10 +48,10 @@ public class BuchService {
                 .toList();
     }
 
-    public void undoDelete(long id) {
-        buchRepository.findById(id).ifPresent(buch -> {
-            buch.setGeloescht(false);
-            buchRepository.save(buch);
-        });
+    public BuchDTO undoDelete(long id) {
+        Buch buch = buchRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Buch mit der ID " + id + " nicht gefunden"));
+        buch.setGeloescht(false);
+        return buchmapper.mapToDTO(buchRepository.save(buch));
     }
 }
