@@ -19,13 +19,11 @@ public class Buch {
     private boolean geloescht = false;
 
     public Buch(
-            long id,
             String titel,
             String autor,
             String veroeffentlichungsJahr,
             String beschreibung,
             boolean geloescht) {
-        this.id = id;
         this.titel = titel;
         this.autor = autor;
         this.veroeffentlichungsJahr = veroeffentlichungsJahr;

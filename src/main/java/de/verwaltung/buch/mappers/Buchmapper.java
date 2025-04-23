@@ -16,13 +16,13 @@ public class Buchmapper {
     }
 
     public Buch mapToModel(BuchDTO buchDTO) {
-        return new Buch(
-                buchDTO.getId(),
-                buchDTO.getTitel(),
-                buchDTO.getAutor(),
-                buchDTO.getVeroeffentlichungsJahr(),
-                buchDTO.getBeschreibung(),
-                buchDTO.isGeloescht()
-        );
+        Buch buch = new Buch();
+        buch.setId(buchDTO.getId());
+        buch.setTitel(buchDTO.getTitel());
+        buch.setAutor(buchDTO.getAutor());
+        buch.setVeroeffentlichungsJahr(buchDTO.getVeroeffentlichungsJahr());
+        buch.setBeschreibung(buchDTO.getBeschreibung());
+        buch.setGeloescht(buchDTO.isGeloescht());
+        return buch;
     }
 }
