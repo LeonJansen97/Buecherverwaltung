@@ -5,23 +5,23 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
-@Route(value = "books")
-@PageTitle("Buchbestand")
-public class BuchbestandView extends VerticalLayout {
-    public BuchbestandView(BuchService buchService) {
+@Route(value = "books/archiv")
+@PageTitle("Bucharchiv")
+public class BuchArchivView extends VerticalLayout {
+    public BuchArchivView(BuchService buchService) {
+        H2 ueberschrift = new H2("Bucharchiv");
 
         centerElements();
 
-        H2 ueberschrift = new H2("Buchbestand");
-
         Grid<BuchDTO> grid = new Grid<>(BuchDTO.class, false);
-        grid.setItems(buchService.findAllBooksNotDeleted());
+        grid.setItems(buchService.findAllBooksDeleted());
 
         grid.addColumn(BuchDTO::getTitel)
                 .setHeader("Titel")
@@ -39,28 +39,23 @@ public class BuchbestandView extends VerticalLayout {
                 .setAutoWidth(true)
                 .setFlexGrow(1);
 
-        grid.addComponentColumn(buch -> {
-            Button editButton = new Button(new Icon(VaadinIcon.EDIT));
-            editButton.getElement().setProperty("title", "Buch bearbeiten");
-            editButton.addClickListener(e ->
-                    editButton.getUI().ifPresent(ui ->
-                            ui.navigate("books/edit/" + buch.getId()))
-            );
-            return editButton;
-        }).setHeader("Bearbeiten").setAutoWidth(true);
+        grid.addColumn(BuchDTO::isGeloescht)
+                .setHeader("Gelöscht");
 
         grid.addComponentColumn(buch -> {
-            Button deleteButton = new Button(new Icon(VaadinIcon.TRASH));
-            deleteButton.getElement().setProperty("title", "Buch entfernen");
-            deleteButton.addClickListener(e ->
-                    deleteButton.getUI().ifPresent(ui ->
-                            ui.navigate("books/delete/" + buch.getId()))
-            );
-            return deleteButton;
-        }).setHeader("Entfernen").setAutoWidth(true);
+            Button undoDeleteButton = new Button(new Icon(VaadinIcon.REPLY));
+            undoDeleteButton.getElement().setProperty("title", "Buch wiederherstellen");
+            undoDeleteButton.addClickListener(e -> {
+                buchService.undoDelete(buch.getId());
+                getUI().ifPresent(ui -> ui.navigate("books"));
+                Notification.show("Das Buch wurde erfolgreich wiederhergestellt.");
+            });
+            return undoDeleteButton;
+        }).setHeader("Wiederherstellen").setAutoWidth(true);
 
         add(ueberschrift, grid);
     }
+
 
     private void centerElements() {
         setSizeFull();

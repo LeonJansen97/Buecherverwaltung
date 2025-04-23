@@ -6,13 +6,21 @@ public class BuchDTO {
     private String beschreibung;
     private String titel;
     private String veroeffentlichungsJahr;
+    private boolean geloescht;
 
-    public BuchDTO(long id, String titel, String autor, String veroeffentlichungsJahr, String beschreibung) {
+    public BuchDTO(
+            long id,
+            String titel,
+            String autor,
+            String veroeffentlichungsJahr,
+            String beschreibung,
+            boolean geloescht) {
         this.id = id;
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.veroeffentlichungsJahr = veroeffentlichungsJahr;
         this.autor = autor;
+        this.geloescht = geloescht;
     }
 
     public BuchDTO() {}
@@ -56,4 +64,9 @@ public class BuchDTO {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+    public boolean isGeloescht() {
+        return geloescht;
+    }
+
 }

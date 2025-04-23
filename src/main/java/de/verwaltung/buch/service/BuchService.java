@@ -36,4 +36,32 @@ public class BuchService {
                 .map(buchmapper::mapToDTO)
                 .orElse(null);
     }
+
+    public List<BuchDTO> findAllBooksNotDeleted() {
+        return buchRepository.findByGeloeschtFalse()
+                .stream()
+                .map(buchmapper::mapToDTO)
+                .toList();
+    }
+
+    public void setDeleteFlag(Long id) {
+        buchRepository.findById(id).ifPresent(buch -> {
+            buch.setGeloescht(true);
+            buchRepository.save(buch);
+        });
+    }
+
+    public List<BuchDTO> findAllBooksDeleted() {
+        return buchRepository.findByGeloeschtTrue()
+                .stream()
+                .map(buchmapper::mapToDTO)
+                .toList();
+    }
+
+    public void undoDelete(long id) {
+        buchRepository.findById(id).ifPresent(buch -> {
+            buch.setGeloescht(false);
+            buchRepository.save(buch);
+        });
+    }
 }

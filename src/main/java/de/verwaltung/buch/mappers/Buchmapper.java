@@ -10,7 +10,8 @@ public class Buchmapper {
                 buch.getTitel(),
                 buch.getAutor(),
                 buch.getVeroeffentlichungsJahr(),
-                buch.getBeschreibung()
+                buch.getBeschreibung(),
+                buch.isGeloescht()
         );
     }
 
@@ -20,7 +21,8 @@ public class Buchmapper {
                 buchDTO.getTitel(),
                 buchDTO.getAutor(),
                 buchDTO.getVeroeffentlichungsJahr(),
-                buchDTO.getBeschreibung()
+                buchDTO.getBeschreibung(),
+                buchDTO.isGeloescht()
         );
     }
 }

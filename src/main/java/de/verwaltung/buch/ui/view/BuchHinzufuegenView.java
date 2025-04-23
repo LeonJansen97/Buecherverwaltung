@@ -1,7 +1,6 @@
 package de.verwaltung.buch.ui.view;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,7 +11,7 @@ import com.vaadin.flow.router.Route;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
-@Route("books/new")
+@Route("books/add")
 @PageTitle("Buch hinzufügen")
 public class BuchHinzufuegenView extends VerticalLayout {
     private final TextField titelField = new TextField("Titel");
@@ -23,16 +22,9 @@ public class BuchHinzufuegenView extends VerticalLayout {
 
     public BuchHinzufuegenView(BuchService buchService) {
 
-        H2 ueberschriftSeite = new H2("Buch hinzufügen");
+        H2 ueberschrift = new H2("Buch hinzufügen");
 
-        Div headingWrapper = new Div(ueberschriftSeite);
-        headingWrapper.getStyle()
-                .set("text-align", "center")
-                .set("width", "100%");
-
-        setPadding(true);
-        setWidth("100%");
-        setAlignItems(Alignment.CENTER);
+        centerElements();
 
         setInputFieldStyles();
 
@@ -77,12 +69,12 @@ public class BuchHinzufuegenView extends VerticalLayout {
 
             buchService.addBookToInventary(buchDTO);
 
-            Notification.show("Buch gespeichert");
+            Notification.show("Das Buch wurde erfolgreich hinzugefügt.");
             clearForm();
         });
 
         add(
-                headingWrapper,
+                ueberschrift,
                 titelField,
                 autorField,
                 veroeffentlichungsJahrField,
@@ -90,6 +82,15 @@ public class BuchHinzufuegenView extends VerticalLayout {
                 speichernButton
         );
     }
+
+    private void centerElements() {
+        setSizeFull();
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setPadding(true);
+        setSpacing(true);
+    }
+
 
     private void setInputFieldStyles() {
         veroeffentlichungsJahrField.setPattern("\\d{4}");

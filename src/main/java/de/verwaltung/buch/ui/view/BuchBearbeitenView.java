@@ -1,7 +1,6 @@
 package de.verwaltung.buch.ui.view;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -29,16 +28,11 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
 
     public BuchBearbeitenView(BuchService buchService) {
         this.buchService = buchService;
-        H2 ueberschriftSeite = new H2("Buch bearbeiten");
 
-        Div headingWrapper = new Div(ueberschriftSeite);
-        headingWrapper.getStyle()
-                .set("text-align", "center")
-                .set("width", "100%");
+        centerElements();
 
-        setPadding(true);
-        setWidth("100%");
-        setAlignItems(Alignment.CENTER);
+        H2 ueberschrift = new H2("Buch bearbeiten");
+
 
         titelField.addValueChangeListener(e -> {
             titelField.setInvalid(e.getValue().isEmpty() ||
@@ -80,12 +74,12 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
 
             buchService.addBookToInventary(buchDTO);
 
-            Notification.show("Buch gespeichert");
-            clearForm();
+            getUI().ifPresent(ui -> ui.navigate("books"));
+            Notification.show("Das Buch wurde erfolgreich bearbeitet.");
         });
 
         add(
-                headingWrapper,
+                ueberschrift,
                 titelField,
                 autorField,
                 veroeffentlichungsJahrField,
@@ -110,6 +104,14 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
         }
     }
 
+    private void centerElements() {
+        setSizeFull();
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setPadding(true);
+        setSpacing(true);
+    }
+
     private void updateBearbeitenButtonState() {
         boolean allValid = !titelField.isInvalid()
                 && !autorField.isInvalid()
@@ -117,12 +119,5 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
                 && !beschreibungTextArea.isInvalid();
 
         bearbeitenButton.setEnabled(allValid);
-    }
-
-    private void clearForm() {
-        titelField.clear();
-        autorField.clear();
-        veroeffentlichungsJahrField.clear();
-        beschreibungTextArea.clear();
     }
 }
