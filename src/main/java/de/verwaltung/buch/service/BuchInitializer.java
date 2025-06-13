@@ -1,7 +1,7 @@
 package de.verwaltung.buch.service;
 
 import de.verwaltung.buch.domain.Buch;
-import de.verwaltung.buch.domain.BuchRepository;
+import de.verwaltung.buch.repositories.BuchRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
