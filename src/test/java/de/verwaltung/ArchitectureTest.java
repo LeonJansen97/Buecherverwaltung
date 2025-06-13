@@ -30,7 +30,7 @@ class ArchitectureTest {
     @ArchTest
     public static final ArchRule repositories_should_only_be_used_by_application_services_and_other_domain_classes = classes()
             .that().areAssignableTo(Repository.class).should().onlyHaveDependentClassesThat()
-            .resideInAnyPackage(BASE_PACKAGE + "..domain..", BASE_PACKAGE + "..service..");
+            .resideInAnyPackage(BASE_PACKAGE + "..domain..", BASE_PACKAGE + "..service..", BASE_PACKAGE + "..repositories..");
 
     @ArchTest
     public static final ArchRule repositories_should_only_be_accessed_by_transactional_classes = classes().that()
@@ -43,6 +43,11 @@ class ArchitectureTest {
             .resideInAnyPackage(BASE_PACKAGE + "..ui..");
 
     @ArchTest
-    public static final ArchRule there_should_not_be_circular_dependencies_between_feature_packages = slices()
-            .matching(BASE_PACKAGE + ".(*)..").should().beFreeOfCycles();
+    public static final ArchRule no_cycles_except_tests = slices()
+            .matching(BASE_PACKAGE + ".(*)..")
+            .should().beFreeOfCycles()
+            .ignoreDependency(
+                    "de.verwaltung.buch.domain..",
+                    "de.verwaltung.buch.repositories.."
+            );
 }

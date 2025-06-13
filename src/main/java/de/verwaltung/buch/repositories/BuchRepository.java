@@ -1,5 +1,6 @@
-package de.verwaltung.buch.domain;
+package de.verwaltung.buch.repositories;
 
+import de.verwaltung.buch.domain.Buch;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
-package de.verwaltung.buch.domain;
+package de.verwaltung.buch.repositories;
 
+import de.verwaltung.buch.domain.Buch;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
