@@ -11,8 +11,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import de.verwaltung.base.ui.view.MainLayout;
 
-@Route(value = "")
+@Route(value = "", layout = MainLayout.class)
 @PageTitle("Übersicht")
 public class DashboardView extends VerticalLayout {
     public DashboardView() {

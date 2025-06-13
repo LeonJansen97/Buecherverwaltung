@@ -8,10 +8,11 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import de.verwaltung.base.ui.view.MainLayout;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
-@Route(value = "books")
+@Route(value = "books", layout = MainLayout.class)
 @PageTitle("Buchbestand")
 public class BuchbestandView extends VerticalLayout {
     public BuchbestandView(BuchService buchService) {

@@ -9,10 +9,11 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import de.verwaltung.base.ui.view.MainLayout;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
-@Route(value = "books/archive")
+@Route(value = "books/archive", layout = MainLayout.class)
 @PageTitle("Bucharchiv")
 public class BuchArchivView extends VerticalLayout {
     public BuchArchivView(BuchService buchService) {
