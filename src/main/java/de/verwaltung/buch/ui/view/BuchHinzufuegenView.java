@@ -32,8 +32,7 @@ public class BuchHinzufuegenView extends VerticalLayout {
         speichernButton.setEnabled(false);
 
         titelField.addValueChangeListener(e -> {
-            titelField.setInvalid(e.getValue().isEmpty() ||
-                    e.getValue().matches(".*\\d.*")
+            titelField.setInvalid(e.getValue().isEmpty()
             );
             updateSaveButtonState();
         });
@@ -62,16 +61,20 @@ public class BuchHinzufuegenView extends VerticalLayout {
         });
 
         speichernButton.addClickListener(e -> {
-            BuchDTO buchDTO = new BuchDTO();
-            buchDTO.setTitel(titelField.getValue());
-            buchDTO.setAutor(autorField.getValue());
-            buchDTO.setVeroeffentlichungsJahr(veroeffentlichungsJahrField.getValue());
-            buchDTO.setBeschreibung(beschreibungTextArea.getValue());
 
-            buchService.addBookToInventary(buchDTO);
+            if (isBookExisting(buchService, titelField.getValue().trim())) {
+                Notification.show("Das Buch existiert bereits.");
+            }else {
+                BuchDTO buchDTO = new BuchDTO();
+                buchDTO.setTitel(titelField.getValue());
+                buchDTO.setAutor(autorField.getValue());
+                buchDTO.setVeroeffentlichungsJahr(veroeffentlichungsJahrField.getValue());
+                buchDTO.setBeschreibung(beschreibungTextArea.getValue());
 
-            Notification.show("Das Buch wurde erfolgreich hinzugefügt.");
-            clearForm();
+                buchService.addBookToInventary(buchDTO);
+                Notification.show("Das Buch wurde erfolgreich hinzugefügt.");
+                clearForm();
+            }
         });
 
         add(
@@ -82,6 +85,10 @@ public class BuchHinzufuegenView extends VerticalLayout {
                 beschreibungTextArea,
                 speichernButton
         );
+    }
+
+    private boolean isBookExisting(BuchService buchService, String titel) {
+        return buchService.findBuchByTitel(titel) != null;
     }
 
     private void centerElements() {

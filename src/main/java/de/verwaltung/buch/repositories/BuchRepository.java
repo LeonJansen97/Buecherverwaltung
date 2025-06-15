@@ -11,4 +11,6 @@ public interface BuchRepository extends CrudRepository<Buch, Long> {
     List<Buch> findByGeloeschtFalse();
 
     List<Buch> findByGeloeschtTrue();
+
+    Buch findByTitel(String titel);
 }

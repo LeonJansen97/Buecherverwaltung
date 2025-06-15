@@ -29,6 +29,14 @@ public class BuchService {
                 .orElse(null);
     }
 
+    public BuchDTO findBuchByTitel(String titel) {
+        Buch buch = buchRepository.findByTitel(titel);
+        if (buch == null) {
+            return null;
+        }
+        return buchmapper.mapToDTO(buch);
+    }
+
     public List<BuchDTO> findAllBooksNotDeleted() {
         return buchRepository.findByGeloeschtFalse()
                 .stream()
