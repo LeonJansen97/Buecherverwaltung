@@ -13,13 +13,13 @@ public class BuchInitializer {
     @Bean
     CommandLineRunner init(BuchRepository buchRepository) {
         return args -> {
-          if (buchRepository.count() == 0) {
-              buchRepository.save(new Buch("1984", "George Orwell", "1949", "Dystopie", false));
-              buchRepository.save(new Buch("Der Prozess", "Franz Kafka", "1925", "Roman", false));
-              buchRepository.save(new Buch("Faust", "Johann Wolfgang von Goethe", "1808", "Drama", false));
-              buchRepository.save(new Buch("Die Verwandlung", "Franz Kafka", "1915", "Novelle", false));
-              buchRepository.save(new Buch("Die Physiker", "Friedrich Dürrenmatt", "1962", "Komödie", false));
-          }
+            if (buchRepository.count() == 0) {
+                buchRepository.save(new Buch("Structure and Interpretation of Computer Programs", "Harold Abelson, Gerald Jay Sussman", "1985", "Informatik", false));
+                buchRepository.save(new Buch("Concrete Mathematics: A Foundation for Computer Science", "Ronald L. Graham, Donald E. Knuth, Oren Patashnik", "1988", "Mathematik/Informatik", false));
+                buchRepository.save(new Buch("Compiler: Prinzipien, Techniken und Werkzeuge", "Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman", "1986", "Informatik", false));
+                buchRepository.save(new Buch("Einführung in die Allgemeine Betriebswirtschaftslehre", "Günter Wöhe", "1960", "Wirtschaft", false));
+                buchRepository.save(new Buch("Dubbel – Taschenbuch für den Maschinenbau", "Heinrich Dubbel", "1914", "Maschinenbau", false));
+            }
         };
     }
 }
