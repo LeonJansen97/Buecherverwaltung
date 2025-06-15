@@ -14,9 +14,12 @@ import de.verwaltung.base.ui.view.MainLayout;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.service.BuchService;
 
+import java.util.Objects;
+
 @Route(value="books/edit/", layout = MainLayout.class)
 @PageTitle("Buch bearbeiten")
 public class BuchBearbeitenView extends VerticalLayout implements HasUrlParameter<Long> {
+    private BuchDTO buchDTO;
     private final TextField titelField = new TextField("Titel");
     private final TextField autorField = new TextField("Autor");
     private final TextField veroeffentlichungsJahrField = new TextField("Veröffentlichungsjahr");
@@ -36,8 +39,7 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
 
 
         titelField.addValueChangeListener(e -> {
-            titelField.setInvalid(e.getValue().isEmpty() ||
-                    e.getValue().matches(".*\\d.*")
+            titelField.setInvalid(e.getValue().isEmpty()
             );
             updateBearbeitenButtonState();
         });
@@ -66,17 +68,21 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
         });
 
         bearbeitenButton.addClickListener(e -> {
-            BuchDTO buchDTO = new BuchDTO();
-            buchDTO.setId(buchId);
-            buchDTO.setTitel(titelField.getValue());
-            buchDTO.setAutor(autorField.getValue());
-            buchDTO.setVeroeffentlichungsJahr(veroeffentlichungsJahrField.getValue());
-            buchDTO.setBeschreibung(beschreibungTextArea.getValue());
+            BuchDTO editedBuchDTO = new BuchDTO();
+            editedBuchDTO.setId(buchId);
+            editedBuchDTO.setTitel(titelField.getValue());
+            editedBuchDTO.setAutor(autorField.getValue());
+            editedBuchDTO.setVeroeffentlichungsJahr(veroeffentlichungsJahrField.getValue());
+            editedBuchDTO.setBeschreibung(beschreibungTextArea.getValue());
 
-            buchService.addBookToInventary(buchDTO);
+            if (!isValueChanged(buchDTO, editedBuchDTO)) {
+                Notification.show("Das Buch wurde noch nicht bearbeitet.");
+            } else {
+                buchService.addBookToInventary(editedBuchDTO);
 
-            getUI().ifPresent(ui -> ui.navigate("books"));
-            Notification.show("Das Buch wurde erfolgreich bearbeitet.");
+                getUI().ifPresent(ui -> ui.navigate("books"));
+                Notification.show("Das Buch wurde erfolgreich bearbeitet.");
+            }
         });
 
         add(
@@ -93,7 +99,7 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
     public void setParameter(BeforeEvent beforeEvent, Long parameter) {
         this.buchId = parameter;
 
-        BuchDTO buchDTO = buchService.findBookById(buchId);
+        buchDTO = buchService.findBookById(buchId);
 
         if (buchDTO != null) {
             titelField.setValue(buchDTO.getTitel());
@@ -103,6 +109,13 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
         } else {
             Notification.show("Das Buch mit der ID " + buchId + " wurde nicht gefunden.");
         }
+    }
+
+    private boolean isValueChanged(BuchDTO original, BuchDTO edited) {
+        return !Objects.equals(original.getTitel(), edited.getTitel())
+                || !Objects.equals(original.getAutor(), edited.getAutor())
+                || !Objects.equals(original.getVeroeffentlichungsJahr(), edited.getVeroeffentlichungsJahr())
+                || !Objects.equals(original.getBeschreibung(), edited.getBeschreibung());
     }
 
     private void centerElements() {
