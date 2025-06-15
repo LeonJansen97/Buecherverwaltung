@@ -1,9 +1,71 @@
 # Buecherverwaltung README
 
-To start the application in development mode, run: `./mvnw`
+Die Anwendung kann im Entwicklungsmodus mit dem folgenden Befehl ausgeführt werden: `./mvnw`
 
-To build the application in production mode, run: `./mvnw -Pproduction package`
+Um die Anwendung zu bauen und im Produktionsmodus zu verwenden, ist folgender Befehl auszuführen: `./mvnw -Pproduction package`
 
-## Getting Started
+## Projekt starten - Schritt für Schritt
 
-The [Getting Started](https://vaadin.com/docs/latest/getting-started) guide will quickly familiarize you with your new Buecherverwaltung implementation. You'll learn how to set up your development environment, understand the project structure, and find resources to help you add muscles to your skeleton — transforming it into a fully-featured application.
+### Voraussetzungen
+
+Stelle sicher, dass folgende Software installiert ist:
+
+- Java 21
+- Git (optional, falls das Projekt aus dem Repository geklont werden soll)
+- IDE der Wahl (IntelliJ, Eclipse, VS Code mit Java Plugin)
+
+### Projekt einrichten
+1. Repository klonen (falls noch nicht vorhanden):
+```bash
+git clone https://github.com/LeonJansen97/Buecherverwaltung.git
+cd buchverwaltung
+```
+2. Das Projekt in der IDE öffnen
+- Projektordner in InteliJ oder Eclipse öffnen
+- Als Maven-Projekt importieren
+3. Abhängigkeiten auflösen
+- Entweder die IDE lädt die Abhängigkeiten automatisch
+- Oder es kann über die Konsole erledigt werden:
+```bash
+mvn clean install
+```
+4. Anwendung starten
+- In der IDE: Starte die Klasse BuchverwaltungApplication
+- Oder über die Konsole:
+```bash
+mvn spring-boot:run
+```
+
+#### Anwendung aufrufen
+http://localhost:8080
+Die Startseite zeigt eine Liste von Büchern und bietet Funktionen zum Hinzufügen, Bearbeiten und weichen Löschen (Soft-Delete).
+
+#### Initialdaten
+Beim ersten Start wird die Datenbank automatisch mit Beispieldaten gefüllt, falss sie leer ist. Diese befinden sich in der Klasse BuchInitializer.java.
+
+#### Projektstruktur (Auszug)
+```bash
+src/main/java/de/verwaltung
+├── base        # Technische UI-Komponenten wie Layout & ErrorHandler
+│   └──  ui  
+│        └──  view        # Enthält Fehlerbehandlung und Basislayout
+├── buch        # Fachlogik zur Buchverwaltung
+│   ├── domain        # Buch-Entity
+│   ├── dtos          # Datenobjekte zur Trennung von Oberfläche und Domäne
+│   ├── repositories  # Repository zum Datenbankzugriff 
+│   ├── service       # Geschäftslogik und Initialdaten
+│   ├── mappers       # Mapper für das Mapping zum DTO und zurück zur Entity
+│   └── ui            # Views und Komponenten
+```
+
+#### Weitere Hinweise
+- Die Anwendung verwendet eine In-Memory H2-Datenbank (konfigurierbar über application.properties)
+  - Zufriff auf die H2-Konsole:
+  http://localhost:8080/h2-console  
+  
+- Vaadin Version: 24.7.2
+
+#### Häufige Probleme
+- Port 8080 ist belegt -> application.properties anpassen und einen anderen Port angeben oder die Anwendung, die auf Port 8080 läuft beenden
+- UI wird nicht angezeigt -> Browser-Cache leeren oder Inkognito-Modus verwenden
+- Java-Version inkompatibel -> Prüfen, ob auch wirklich Java-Version 21 verwendet wird
