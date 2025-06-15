@@ -1,9 +1,5 @@
 # Buecherverwaltung README
 
-Die Anwendung kann im Entwicklungsmodus mit dem folgenden Befehl ausgeführt werden: `./mvnw`
-
-Um die Anwendung zu bauen und im Produktionsmodus zu verwenden, ist folgender Befehl auszuführen: `./mvnw -Pproduction package`
-
 ## Projekt starten - Schritt für Schritt
 
 ### Voraussetzungen
