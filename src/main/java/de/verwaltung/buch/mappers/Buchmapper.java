@@ -39,14 +39,24 @@ public class Buchmapper {
         return buch;
     }
 
+    public BuchEntity updateEntity(Buch buchDomain) {
+        BuchEntity buchEntity = new BuchEntity();
+        buchEntity.setId(buchDomain.getId());
+        buchEntity.setTitel(buchDomain.getTitel());
+        buchEntity.setAutor(buchDomain.getAutor());
+        buchEntity.setVeroeffentlichungsJahr(buchDomain.getVeroeffentlichungsJahr());
+        buchEntity.setBeschreibung(buchDomain.getBeschreibung());
+        buchEntity.setGeloescht(buchDomain.isGeloescht());
+        return buchEntity;
+    }
+
     public BuchEntity toEntity(Buch buchDomain) {
-        BuchEntity buch = new BuchEntity();
-        buch.setId(buchDomain.getId());
-        buch.setTitel(buchDomain.getTitel());
-        buch.setAutor(buchDomain.getAutor());
-        buch.setVeroeffentlichungsJahr(buchDomain.getVeroeffentlichungsJahr());
-        buch.setBeschreibung(buchDomain.getBeschreibung());
-        buch.setGeloescht(buchDomain.isGeloescht());
-        return buch;
+        BuchEntity buchEntity = new BuchEntity();
+        buchEntity.setTitel(buchDomain.getTitel());
+        buchEntity.setAutor(buchDomain.getAutor());
+        buchEntity.setVeroeffentlichungsJahr(buchDomain.getVeroeffentlichungsJahr());
+        buchEntity.setBeschreibung(buchDomain.getBeschreibung());
+        buchEntity.setGeloescht(buchDomain.isGeloescht());
+        return buchEntity;
     }
 }

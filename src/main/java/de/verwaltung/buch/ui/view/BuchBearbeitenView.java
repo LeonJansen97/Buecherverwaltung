@@ -10,7 +10,7 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import de.verwaltung.base.ui.view.MainLayout;
+import de.verwaltung.base.ui.view.layout.MainLayout;
 import de.verwaltung.buch.dtos.BuchDTO;
 import de.verwaltung.buch.application.service.BuchService;
 
@@ -74,11 +74,12 @@ public class BuchBearbeitenView extends VerticalLayout implements HasUrlParamete
             editedBuchDTO.setAutor(autorField.getValue());
             editedBuchDTO.setVeroeffentlichungsJahr(veroeffentlichungsJahrField.getValue());
             editedBuchDTO.setBeschreibung(beschreibungTextArea.getValue());
+            editedBuchDTO.setGeloescht(buchDTO.isGeloescht());
 
             if (!isValueChanged(buchDTO, editedBuchDTO)) {
                 Notification.show("Das Buch wurde noch nicht bearbeitet.");
             } else {
-                buchService.addBookToInventary(editedBuchDTO);
+                buchService.updateBookInInventary(editedBuchDTO);
 
                 getUI().ifPresent(ui -> ui.navigate("books"));
                 Notification.show("Das Buch wurde erfolgreich bearbeitet.");

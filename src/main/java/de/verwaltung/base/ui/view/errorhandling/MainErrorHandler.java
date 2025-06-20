@@ -1,4 +1,4 @@
-package de.verwaltung.base.ui.view;
+package de.verwaltung.base.ui.view.errorhandling;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.notification.Notification;

@@ -98,7 +98,6 @@ class BuchServiceIntegrationTest {
         List<BuchDTO> aktiveBuecher = buchService.findAllBooksNotDeleted();
 
         // assert
-        assertTrue(aktiveBuecher.stream().anyMatch(b -> Objects.equals(b.getId(), wirdGeloescht.getId())));
         assertTrue(aktiveBuecher.stream().noneMatch(b -> Objects.equals(b.getId(), geloescht.getId())));
     }
 

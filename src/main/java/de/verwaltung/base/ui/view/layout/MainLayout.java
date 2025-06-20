@@ -1,4 +1,4 @@
-package de.verwaltung.base.ui.view;
+package de.verwaltung.base.ui.view.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Div;

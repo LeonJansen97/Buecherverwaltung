@@ -28,6 +28,14 @@ public class BuchService {
         return buchmapper.toDTO(buchmapper.toDomain(savedEntity));
     }
 
+    public BuchDTO updateBookInInventary(BuchDTO editedBuchDTO) {
+        Buch editedBuchDomain = buchmapper.toDomain(editedBuchDTO);
+
+        BuchEntity editedEntity = buchRepository.save(buchmapper.updateEntity(editedBuchDomain));
+
+        return buchmapper.toDTO(buchmapper.toDomain(editedEntity));
+    }
+
     public BuchDTO findBookById(Long id) {
         Optional<BuchEntity> optionalBuchEntity = buchRepository.findById(id);
 
@@ -60,7 +68,7 @@ public class BuchService {
         Buch buch = buchmapper.toDomain(buchEntity);
         buch.markiereAlsGeloescht();
 
-        BuchEntity savedEntity = buchRepository.save(buchmapper.toEntity(buch));
+        BuchEntity savedEntity = buchRepository.save(buchmapper.updateEntity(buch));
         return buchmapper.toDTO(buchmapper.toDomain(savedEntity));
     }
 
@@ -79,7 +87,7 @@ public class BuchService {
         Buch buch = buchmapper.toDomain(buchEntity);
         buch.reaktiviere();
 
-        BuchEntity savedEntity = buchRepository.save(buchmapper.toEntity(buch));
+        BuchEntity savedEntity = buchRepository.save(buchmapper.updateEntity(buch));
         return buchmapper.toDTO(buchmapper.toDomain(savedEntity));
     }
 }

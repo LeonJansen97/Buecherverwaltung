@@ -50,6 +50,30 @@ public class BuchServiceTest {
     }
 
     @Test
+    public void testupdateBookInInventary() {
+        // given
+        BuchDTO baseDto = createTestBuchDTO();
+        BuchDTO editedDto = createTestBuchDTO();
+        editedDto.setTitel("NeuerTitel");
+        BuchEntity savedEntity = createTestEntity();
+        savedEntity.setTitel("NeuerTitel");
+
+        // when
+        when(buchRepository.save(any(BuchEntity.class))).thenReturn(savedEntity);
+
+        BuchDTO ergebnis = cut.updateBookInInventary(editedDto);
+
+        // then
+        verify(buchRepository, times(1)).save(any(BuchEntity.class));
+
+        assertNotEquals(baseDto.getTitel(), ergebnis.getTitel());
+        assertEquals("Autor", ergebnis.getAutor());
+        assertEquals("2023", ergebnis.getVeroeffentlichungsJahr());
+        assertEquals("Beschreibung", ergebnis.getBeschreibung());
+        assertFalse(ergebnis.isGeloescht());
+    }
+
+    @Test
     public void testFindBookById_found() {
         // given
         BuchEntity gespeichert = createTestEntity();
