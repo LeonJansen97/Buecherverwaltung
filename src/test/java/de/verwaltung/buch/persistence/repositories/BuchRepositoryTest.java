@@ -1,6 +1,6 @@
-package de.verwaltung.buch.repositories;
+package de.verwaltung.buch.persistence.repositories;
 
-import de.verwaltung.buch.domain.Buch;
+import de.verwaltung.buch.persistence.entities.BuchEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -20,27 +20,28 @@ public class BuchRepositoryTest {
     @Test
     public void testSaveAndFindById() {
         // arrange
-        Buch buch = createTestBuch( "Titel", "Autor", "2022", "Beschreibung", false);
-        Buch gespeichert = cut.save(buch);
+        BuchEntity buch = createTestBuch("Titel", "Autor", "2022", "Beschreibung", false);
+        BuchEntity gespeichert = cut.save(buch);
 
         // assert
         assertEquals("Titel", gespeichert.getTitel());
 
         // assert
-        Buch gefunden = cut.findById(gespeichert.getId()).orElse(null);
+        BuchEntity gefunden = cut.findById(gespeichert.getId()).orElse(null);
         assertNotNull(gefunden);
+        assertEquals("Titel", gefunden.getTitel());
     }
 
     @Test
     public void testFindByGeloeschtTrue() {
         // arrange
-        Buch buch = createTestBuch("Aktiv", "Autor", "2021", "A", false);
-        Buch geloeschtBuch = createTestBuch( "Geloescht", "Autor", "2021", "B", true);
-        cut.save(buch);
-        cut.save(geloeschtBuch);
+        BuchEntity aktiv = createTestBuch("Aktiv", "Autor", "2021", "A", false);
+        BuchEntity geloescht = createTestBuch("Geloescht", "Autor", "2021", "B", true);
+        cut.save(aktiv);
+        cut.save(geloescht);
 
         // act
-        List<Buch> ergebnis = cut.findByGeloeschtTrue();
+        List<BuchEntity> ergebnis = cut.findByGeloeschtTrue();
 
         // assert
         assertEquals(1, ergebnis.size());
@@ -50,26 +51,26 @@ public class BuchRepositoryTest {
     @Test
     public void testFindByGeloeschtFalse() {
         // arrange
-        Buch buch = createTestBuch("Aktiv", "Autor", "2021", "A", false);
-        Buch geloeschtBuch = createTestBuch( "Geloescht", "Autor", "2021", "B", true);
-        cut.save(buch);
-        cut.save(geloeschtBuch);
+        BuchEntity aktiv = createTestBuch("Aktiv", "Autor", "2021", "A", false);
+        BuchEntity geloescht = createTestBuch("Geloescht", "Autor", "2021", "B", true);
+        cut.save(aktiv);
+        cut.save(geloescht);
 
         // act
-        List<Buch> ergebnis = cut.findByGeloeschtFalse();
+        List<BuchEntity> ergebnis = cut.findByGeloeschtFalse();
 
         // assert
         assertEquals(1, ergebnis.size());
         assertFalse(ergebnis.getFirst().isGeloescht());
     }
 
-    private Buch createTestBuch(
+    private BuchEntity createTestBuch(
             String titel,
             String autor,
             String veroeffentlichungsJahr,
             String beschreibung,
             boolean geloescht) {
-        Buch buch = new Buch();
+        BuchEntity buch = new BuchEntity();
         buch.setTitel(titel);
         buch.setAutor(autor);
         buch.setVeroeffentlichungsJahr(veroeffentlichungsJahr);

@@ -19,27 +19,38 @@ class ArchitectureTest {
 
     @ArchTest
     public static final ArchRule domain_model_should_not_depend_on_application_services = noClasses().that()
-            .resideInAPackage(BASE_PACKAGE + "..domain..").should().dependOnClassesThat()
-            .resideInAPackage(BASE_PACKAGE + "..service..");
+            .resideInAPackage(BASE_PACKAGE + "..domain..")
+            .should().dependOnClassesThat()
+            .resideInAPackage(BASE_PACKAGE + ".application.service..");
 
     @ArchTest
     public static final ArchRule domain_model_should_not_depend_on_the_user_interface = noClasses().that()
-            .resideInAPackage(BASE_PACKAGE + "..domain..").should().dependOnClassesThat()
+            .resideInAPackage(BASE_PACKAGE + "..domain..")
+            .should().dependOnClassesThat()
             .resideInAnyPackage(BASE_PACKAGE + "..ui..");
 
     @ArchTest
+    public static final ArchRule domain_should_not_depend_on_dtos_or_mappers = noClasses().that()
+            .resideInAPackage(BASE_PACKAGE + "..domain..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage(BASE_PACKAGE + "..dtos..", BASE_PACKAGE + "..mappers..");
+
+    @ArchTest
     public static final ArchRule repositories_should_only_be_used_by_application_services_and_other_domain_classes = classes()
-            .that().areAssignableTo(Repository.class).should().onlyHaveDependentClassesThat()
-            .resideInAnyPackage(BASE_PACKAGE + "..domain..", BASE_PACKAGE + "..service..", BASE_PACKAGE + "..repositories..");
+            .that().areAssignableTo(Repository.class)
+            .should().onlyHaveDependentClassesThat()
+            .resideInAnyPackage(BASE_PACKAGE + "..domain..", BASE_PACKAGE + ".application.service..", BASE_PACKAGE + ".persistence.repositories..");
 
     @ArchTest
     public static final ArchRule repositories_should_only_be_accessed_by_transactional_classes = classes().that()
-            .areAssignableTo(Repository.class).should().onlyBeAccessed().byClassesThat()
+            .areAssignableTo(Repository.class)
+            .should().onlyBeAccessed().byClassesThat()
             .areAnnotatedWith(Transactional.class);
 
     @ArchTest
     public static final ArchRule application_services_should_not_depend_on_the_user_interface = noClasses().that()
-            .resideInAPackage(BASE_PACKAGE + "..service..").should().dependOnClassesThat()
+            .resideInAPackage(BASE_PACKAGE + ".application.service..")
+            .should().dependOnClassesThat()
             .resideInAnyPackage(BASE_PACKAGE + "..ui..");
 
     @ArchTest
@@ -48,6 +59,6 @@ class ArchitectureTest {
             .should().beFreeOfCycles()
             .ignoreDependency(
                     "de.verwaltung.buch.domain..",
-                    "de.verwaltung.buch.repositories.."
+                    "de.verwaltung.buch.persistence.repositories.."
             );
 }

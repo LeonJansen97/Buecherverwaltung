@@ -1,7 +1,7 @@
-package de.verwaltung.buch.service;
+package de.verwaltung.buch.application.service;
 
-import de.verwaltung.buch.domain.Buch;
-import de.verwaltung.buch.repositories.BuchRepository;
+import de.verwaltung.buch.persistence.entities.BuchEntity;
+import de.verwaltung.buch.persistence.repositories.BuchRepository;
 import de.verwaltung.buch.dtos.BuchDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,15 +32,15 @@ public class BuchServiceTest {
     public void testAddBookToInventary() {
         // given
         BuchDTO dto = createTestBuchDTO();
-        Buch gespeichert = createTestBuch();
+        BuchEntity savedEntity = createTestEntity();
 
         // when
-        when(buchRepository.save(any())).thenReturn(gespeichert);
+        when(buchRepository.save(any(BuchEntity.class))).thenReturn(savedEntity);
 
         BuchDTO ergebnis = cut.addBookToInventary(dto);
 
         // then
-        verify(buchRepository, times(1)).save(any());
+        verify(buchRepository, times(1)).save(any(BuchEntity.class));
 
         assertEquals("Titel", ergebnis.getTitel());
         assertEquals("Autor", ergebnis.getAutor());
@@ -52,7 +52,7 @@ public class BuchServiceTest {
     @Test
     public void testFindBookById_found() {
         // given
-        Buch gespeichert = createTestBuch();
+        BuchEntity gespeichert = createTestEntity();
 
         // when
         when(buchRepository.findById(anyLong())).thenReturn(Optional.of(gespeichert));
@@ -80,17 +80,19 @@ public class BuchServiceTest {
     @Test
     public void testSetDeleteFlag() {
         // given
-        Buch gespeichert = createTestBuch();
+        BuchEntity gespeichert = createTestEntity();
+        BuchEntity geloescht = createTestEntity();
+        geloescht.setGeloescht(true);
 
         // when
         when(buchRepository.findById(1L)).thenReturn(Optional.of(gespeichert));
-        when(buchRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+        when(buchRepository.save(any(BuchEntity.class))).thenReturn(geloescht);
 
         BuchDTO ergebnis = cut.setDeleteFlag(1L);
 
         // then
         verify(buchRepository, times(1)).findById(anyLong());
-        verify(buchRepository, times(1)).save(any());
+        verify(buchRepository, times(1)).save(any(BuchEntity.class));
 
         assertTrue(ergebnis.isGeloescht());
     }
@@ -98,18 +100,20 @@ public class BuchServiceTest {
     @Test
     public void testUndoDelete() {
         // given
-        Buch gespeichert = createTestBuch();
+        BuchEntity gespeichert = createTestEntity();
         gespeichert.setGeloescht(true);
+        BuchEntity nichtGeloescht = createTestEntity();
+        nichtGeloescht.setGeloescht(false);
 
         // when
         when(buchRepository.findById(anyLong())).thenReturn(Optional.of(gespeichert));
-        when(buchRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+        when(buchRepository.save(any(BuchEntity.class))).thenReturn(nichtGeloescht);
 
         BuchDTO ergebnis = cut.undoDelete(2L);
 
         // then
         verify(buchRepository, times(1)).findById(anyLong());
-        verify(buchRepository, times(1)).save(any());
+        verify(buchRepository, times(1)).save(any(BuchEntity.class));
 
         assertFalse(ergebnis.isGeloescht());
     }
@@ -117,9 +121,9 @@ public class BuchServiceTest {
     @Test
     public void testFindAllBooksDeleted() {
         // given
-        Buch gespeichert = createTestBuch();
+        BuchEntity gespeichert = createTestEntity();
         gespeichert.setGeloescht(true);
-        List<Buch> geloeschteBuecher = List.of(gespeichert);
+        List<BuchEntity> geloeschteBuecher = List.of(gespeichert);
 
         // when
         when(buchRepository.findByGeloeschtTrue()).thenReturn(geloeschteBuecher);
@@ -136,7 +140,7 @@ public class BuchServiceTest {
     @Test
     public void testFindAllBooksNotDeleted() {
         // given
-        List<Buch> aktiveBuecher = List.of(createTestBuch());
+        List<BuchEntity> aktiveBuecher = List.of(createTestEntity());
 
         // when
         when(buchRepository.findByGeloeschtFalse()).thenReturn(aktiveBuecher);
@@ -175,14 +179,14 @@ public class BuchServiceTest {
         return dto;
     }
 
-    private Buch createTestBuch() {
-        Buch buch = new Buch();
-        buch.setId(1L);
-        buch.setTitel("Titel");
-        buch.setAutor("Autor");
-        buch.setVeroeffentlichungsJahr("2023");
-        buch.setBeschreibung("Beschreibung");
-        buch.setGeloescht(false);
-        return buch;
+    private BuchEntity createTestEntity() {
+        BuchEntity buchEntity = new BuchEntity();
+        buchEntity.setId(1L);
+        buchEntity.setTitel("Titel");
+        buchEntity.setAutor("Autor");
+        buchEntity.setVeroeffentlichungsJahr("2023");
+        buchEntity.setBeschreibung("Beschreibung");
+        buchEntity.setGeloescht(false);
+        return buchEntity;
     }
 }

@@ -1,8 +1,8 @@
 package de.verwaltung.buch.mappers;
 
-
 import de.verwaltung.buch.domain.Buch;
 import de.verwaltung.buch.dtos.BuchDTO;
+import de.verwaltung.buch.persistence.entities.BuchEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,41 +12,40 @@ public class BuchmapperTest {
     private final Buchmapper cut = new Buchmapper();
 
     @Test
-    public void testMapToDTO() {
-        // arrange
-        Buch gespeichert = createTestBuch();
+    public void testMapBuchEntityToBuchDomainAndBack() {
+        BuchEntity entity = createTestBuchEntity();
+        Buch domain = cut.toDomain(entity);
+        BuchEntity result = cut.toEntity(domain);
 
-        // act
-        BuchDTO dto = cut.mapToDTO(gespeichert);
-
-        // assert
-        assertEquals(gespeichert.getId(), dto.getId());
-        assertEquals(gespeichert.getTitel(), dto.getTitel());
-        assertEquals(gespeichert.getAutor(), dto.getAutor());
-        assertEquals(gespeichert.getVeroeffentlichungsJahr(), dto.getVeroeffentlichungsJahr());
-        assertEquals(gespeichert.getBeschreibung(), dto.getBeschreibung());
-        assertFalse(dto.isGeloescht());
+        assertEquals(entity.getTitel(), result.getTitel());
+        assertEquals(entity.getAutor(), result.getAutor());
+        assertEquals(entity.getVeroeffentlichungsJahr(), result.getVeroeffentlichungsJahr());
+        assertEquals(entity.getBeschreibung(), result.getBeschreibung());
+        assertEquals(entity.isGeloescht(), result.isGeloescht());
     }
 
     @Test
-    public void testMapToModel() {
-        // arrange
-        BuchDTO zuspeichern = createTestBuchDTO();
+    public void testMapBuchDomainToBuchDTOAndBack() {
+        Buch domain = createTestBuchDomain();
+        BuchDTO dto = cut.toDTO(domain);
+        Buch domainAgain = cut.toDomain(dto);
 
-        // act
-        Buch gespeichert = cut.mapToModel(zuspeichern);
-
-        // assert
-        assertEquals(zuspeichern.getId(), gespeichert.getId());
-        assertEquals(zuspeichern.getTitel(), gespeichert.getTitel());
-        assertEquals(zuspeichern.getAutor(), gespeichert.getAutor());
-        assertEquals(zuspeichern.getVeroeffentlichungsJahr(), gespeichert.getVeroeffentlichungsJahr());
-        assertEquals(zuspeichern.getBeschreibung(), gespeichert.getBeschreibung());
-        assertFalse(gespeichert.isGeloescht());
+        assertEquals(domain.getTitel(), dto.getTitel());
+        assertEquals(domain.getTitel(), domainAgain.getTitel());
+        assertEquals(domain.isGeloescht(), domainAgain.isGeloescht());
     }
 
-    private Buch createTestBuch() {
-        Buch buch = new Buch();
+    @Test
+    public void testMapBuchEntityToBuchDTOViaDomain() {
+        BuchEntity entity = createTestBuchEntity();
+        BuchDTO dto = cut.toDTO(cut.toDomain(entity));
+
+        assertEquals(entity.getTitel(), dto.getTitel());
+        assertEquals(entity.getAutor(), dto.getAutor());
+    }
+
+   private BuchEntity createTestBuchEntity() {
+        BuchEntity buch = new BuchEntity();
         buch.setId(1L);
         buch.setTitel("Titel");
         buch.setAutor("Autor");
@@ -56,14 +55,14 @@ public class BuchmapperTest {
         return buch;
     }
 
-    private BuchDTO createTestBuchDTO() {
-        BuchDTO dto = new BuchDTO();
-        dto.setId(1L);
-        dto.setTitel("Titel");
-        dto.setAutor("Autor");
-        dto.setVeroeffentlichungsJahr("2023");
-        dto.setBeschreibung("Beschreibung");
-        dto.setGeloescht(false);
-        return dto;
+    private Buch createTestBuchDomain() {
+        Buch buch = new Buch();
+        buch.setId(1L);
+        buch.setTitel("Titel");
+        buch.setAutor("Autor");
+        buch.setVeroeffentlichungsJahr("2023");
+        buch.setBeschreibung("Beschreibung");
+        buch.setGeloescht(false);
+        return buch;
     }
 }

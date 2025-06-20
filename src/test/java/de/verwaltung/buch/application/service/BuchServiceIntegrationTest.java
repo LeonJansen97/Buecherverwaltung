@@ -1,4 +1,4 @@
-package de.verwaltung.buch.service;
+package de.verwaltung.buch.application.service;
 
 import de.verwaltung.buch.dtos.BuchDTO;
 import org.junit.jupiter.api.Test;
@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -90,16 +91,15 @@ class BuchServiceIntegrationTest {
     @Test
     public void testFindAllBooksNotDeleted() {
         // arrange
-        BuchDTO aktiv = saveTestBuch("Aktiv");
-        BuchDTO geloescht = saveTestBuch("Gelöscht");
-        buchService.setDeleteFlag(geloescht.getId());
+        BuchDTO wirdGeloescht = saveTestBuch("Wird gelöscht");
+        BuchDTO geloescht = buchService.setDeleteFlag(wirdGeloescht.getId());
 
         // act
         List<BuchDTO> aktiveBuecher = buchService.findAllBooksNotDeleted();
 
         // assert
-        assertTrue(aktiveBuecher.stream().anyMatch(b -> b.getId() == aktiv.getId()));
-        assertTrue(aktiveBuecher.stream().noneMatch(b -> b.getId() == geloescht.getId()));
+        assertTrue(aktiveBuecher.stream().anyMatch(b -> Objects.equals(b.getId(), wirdGeloescht.getId())));
+        assertTrue(aktiveBuecher.stream().noneMatch(b -> Objects.equals(b.getId(), geloescht.getId())));
     }
 
     private BuchDTO saveTestBuch(String titel) {

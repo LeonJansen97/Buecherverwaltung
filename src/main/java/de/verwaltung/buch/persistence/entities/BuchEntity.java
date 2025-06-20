@@ -1,36 +1,24 @@
-package de.verwaltung.buch.domain;
+package de.verwaltung.buch.persistence.entities;
 
-public class Buch {
+import jakarta.persistence.*;
 
+@Entity
+public class BuchEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String titel;
+    @Column(nullable = false)
     private String beschreibung;
+    @Column(nullable = false)
     private String veroeffentlichungsJahr;
+    @Column(nullable = false)
     private String autor;
+    @Column(nullable = false)
     private boolean geloescht = false;
 
-    public Buch(
-            String titel,
-            String autor,
-            String veroeffentlichungsJahr,
-            String beschreibung,
-            boolean geloescht) {
-        this.titel = titel;
-        this.autor = autor;
-        this.veroeffentlichungsJahr = veroeffentlichungsJahr;
-        this.beschreibung = beschreibung;
-        this.geloescht = geloescht;
-    }
-
-    public Buch() {}
-
-    public void markiereAlsGeloescht() {
-        this.geloescht = true;
-    }
-
-    public void reaktiviere() {
-        this.geloescht = false;
-    }
+    public BuchEntity() {}
 
     public Long getId() {
         return id;

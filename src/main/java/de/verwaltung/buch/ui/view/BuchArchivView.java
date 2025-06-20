@@ -11,7 +11,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import de.verwaltung.base.ui.view.MainLayout;
 import de.verwaltung.buch.dtos.BuchDTO;
-import de.verwaltung.buch.service.BuchService;
+import de.verwaltung.buch.application.service.BuchService;
 
 @Route(value = "books/archive", layout = MainLayout.class)
 @PageTitle("Bucharchiv")
@@ -43,11 +43,11 @@ public class BuchArchivView extends VerticalLayout {
         grid.addColumn(BuchDTO::isGeloescht)
                 .setHeader("Gelöscht");
 
-        grid.addComponentColumn(buch -> {
+        grid.addComponentColumn(buchDto -> {
             Button undoDeleteButton = new Button(new Icon(VaadinIcon.REPLY));
             undoDeleteButton.getElement().setProperty("title", "Buch wiederherstellen");
             undoDeleteButton.addClickListener(e -> {
-                buchService.undoDelete(buch.getId());
+                buchService.undoDelete(buchDto.getId());
                 getUI().ifPresent(ui -> ui.navigate("books"));
                 Notification.show("Das Buch wurde erfolgreich wiederhergestellt.");
             });

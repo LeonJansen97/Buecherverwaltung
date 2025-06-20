@@ -12,7 +12,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import de.verwaltung.base.ui.view.MainLayout;
 import de.verwaltung.buch.dtos.BuchDTO;
-import de.verwaltung.buch.service.BuchService;
+import de.verwaltung.buch.application.service.BuchService;
 
 import java.util.Objects;
 
