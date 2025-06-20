@@ -45,12 +45,17 @@ src/main/java/de/verwaltung
 ├── base        # Technische UI-Komponenten wie Layout & ErrorHandler
 │   └──  ui  
 │        └──  view        # Enthält Fehlerbehandlung und Basislayout
+│             ├── errorhandling   # Fehlerbehandlung
+│             └── layout          # basislayout von Views  
 ├── buch        # Fachlogik zur Buchverwaltung
-│   ├── domain        # Buch-Entity
+│   ├── application
+│   │   └── services      # Geschäftslogik und Initialdaten
+│   ├── domain        # Buch-Domänenobjekt
 │   ├── dtos          # Datenobjekte zur Trennung von Oberfläche und Domäne
-│   ├── repositories  # Repository zum Datenbankzugriff 
-│   ├── service       # Geschäftslogik und Initialdaten
 │   ├── mappers       # Mapper für das Mapping zum DTO und zurück zur Entity
+│   ├── persistence   # enhält Entitäten und Repositories
+│   │   ├── entities      # Buch-Entität
+│   │   └── repositories  # Buch-Repository zum Datenbankzugriff 
 │   └── ui            # Views und Komponenten
 ```
 

@@ -1,4 +1,4 @@
-package de.verwaltung.buch.application.service;
+package de.verwaltung.buch.application.services;
 
 import de.verwaltung.buch.dtos.BuchDTO;
 import org.junit.jupiter.api.Test;

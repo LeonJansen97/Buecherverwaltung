@@ -1,4 +1,4 @@
-package de.verwaltung.buch.application.service;
+package de.verwaltung.buch.application.services;
 
 import de.verwaltung.buch.persistence.entities.BuchEntity;
 import de.verwaltung.buch.persistence.repositories.BuchRepository;
