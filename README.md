@@ -34,6 +34,7 @@ mvn spring-boot:run
 
 #### Anwendung aufrufen
 http://localhost:8080
+
 Die Startseite zeigt eine Liste von Büchern und bietet Funktionen zum Hinzufügen, Bearbeiten und weichen Löschen (Soft-Delete).
 
 #### Initialdaten
@@ -46,13 +47,13 @@ src/main/java/de/verwaltung
 │   └──  ui  
 │        └──  view        # Enthält Fehlerbehandlung und Basislayout
 │             ├── errorhandling   # Fehlerbehandlung
-│             └── layout          # basislayout von Views  
+│             └── layout          # Basislayout von Views  
 ├── buch        # Fachlogik zur Buchverwaltung
 │   ├── application
 │   │   └── services      # Geschäftslogik und Initialdaten
 │   ├── domain        # Buch-Domänenobjekt
 │   ├── dtos          # Datenobjekte zur Trennung von Oberfläche und Domäne
-│   ├── mappers       # Mapper für das Mapping zum DTO und zurück zur Entity
+│   ├── mappers       # Mapper für das Mapping zum DTO, zur Domain und zur Entity
 │   ├── persistence   # enhält Entitäten und Repositories
 │   │   ├── entities      # Buch-Entität
 │   │   └── repositories  # Buch-Repository zum Datenbankzugriff 
@@ -69,4 +70,4 @@ src/main/java/de/verwaltung
 #### Häufige Probleme
 - Port 8080 ist belegt -> application.properties anpassen und einen anderen Port angeben oder die Anwendung, die auf Port 8080 läuft beenden
 - UI wird nicht angezeigt -> Browser-Cache leeren oder Inkognito-Modus verwenden
-- Java-Version inkompatibel -> Prüfen, ob auch wirklich Java-Version 21 verwendet wird
+- Java-Version inkompatibel -> Prüfen, ob auch wirklich Java-Version 21 istalliert und in der IDE ausgewählt ist
