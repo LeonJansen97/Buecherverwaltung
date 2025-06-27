@@ -8,6 +8,7 @@ Stelle sicher, dass folgende Software installiert ist:
 - Java 21 oder höher
 - Git (optional, falls das Projekt aus dem Repository geklont werden soll), es ist auch möglich das Projekt als zip-Datei herunterzuladen
 - IDE der Wahl (IntelliJ oder VSCode)
+- Maven (falls die Anwendung nachher per maven-Befehl gestartet werden soll)
 
 ### Projekt herunterladen
 - Repository von Github klonen oder als zip herunterladen (falls noch nicht vorhanden):
@@ -35,7 +36,7 @@ Die Einrichtung funktioniert bei Eclipse leider nicht so gut, wegen nicht mehr a
 
 ### Start der Anwendung
 - In der IDE: Starte die Klasse BuchverwaltungApplication
-- Oder über die Konsole:
+- Oder über die Konsole (sofern maven installiert und die Umgebungsvariable zum maven-Verzecihnis gesetzt ist):
 ```bash
 mvn spring-boot:run
 ```
